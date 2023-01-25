@@ -13,15 +13,14 @@
             </thead>
             <tbody>
               <tr v-for="content in contents" :key="content.name">
-                <td></td>
-
-                <td
-                  :class="
-                    content.type == 'dir'
-                      ? 'directory teal--text text-decoration-underline'
-                      : ''
-                  "
-                >
+                <td v-if="isDirectory(content.type)">
+                  <button
+                    class="directory teal--text text-decoration-underline"
+                  >
+                    {{ content.name }}
+                  </button>
+                </td>
+                <td v-else>
                   {{ content.name }}
                 </td>
                 <td>
@@ -65,6 +64,9 @@ export default {
       );
       this.contents = this.contents.concat(contents);
       this.loading = false;
+    },
+    isDirectory(type) {
+      return type == "dir";
     },
   },
   watch: {
