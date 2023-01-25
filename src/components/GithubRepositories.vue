@@ -31,6 +31,11 @@
                   <a :href="content.html_url">{{ content.type }}</a>
                 </td>
               </tr>
+              <div v-if="typeof previousPath == 'string'">
+                <v-btn class="ma-2" outlined color="teal" @click="goBack">
+                  Back
+                </v-btn>
+              </div>
             </tbody>
           </template>
         </v-simple-table>
@@ -55,6 +60,8 @@ export default {
   data: () => ({
     contents: [],
     loading: false,
+    directoryContent: true,
+    previousPath: null,
   }),
   methods: {
     async listContent() {
@@ -64,6 +71,7 @@ export default {
         this.repo.name
       );
       this.contents = this.contents.concat(contents);
+      this.previousPath = null;
       this.loading = false;
     },
     async listFolderContent(path) {
@@ -73,8 +81,14 @@ export default {
         this.repo.name,
         path
       );
+      let newPreviousPathList = path.split("/");
+      newPreviousPathList.pop();
+      const newPreviousPath = newPreviousPathList.join("/");
+      this.previousPath = newPreviousPath;
+      console.log(contents);
       this.contents = this.contents.concat(contents);
       this.loading = false;
+      console.log(this.previousPath);
     },
     isDirectory(type) {
       return type == "dir";
@@ -82,6 +96,15 @@ export default {
     openDirectory(path) {
       this.contents = [];
       this.listFolderContent(path);
+    },
+    goBack() {
+      if (this.previousPath == "") {
+        this.contents = [];
+        this.listContent();
+      } else {
+        this.contents = [];
+        this.listFolderContent(this.previousPath);
+      }
     },
   },
   watch: {
