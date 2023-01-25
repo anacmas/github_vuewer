@@ -14,6 +14,7 @@
             <tbody>
               <tr v-for="content in contents" :key="content.name">
                 <td v-if="isDirectory(content.type)">
+                  <v-icon class="icon">mdi-folder</v-icon>
                   <button
                     class="directory teal--text text-decoration-underline"
                     @click="openDirectory(content.path)"
@@ -22,13 +23,14 @@
                   </button>
                 </td>
                 <td v-else>
+                  <v-icon class="icon">mdi-file-outline</v-icon>
                   {{ content.name }}
                 </td>
                 <td>
                   {{ content.type }}
                 </td>
                 <td>
-                  <a :href="content.html_url">{{ content.type }}</a>
+                  <a :href="content.html_url">link</a>
                 </td>
               </tr>
               <div v-if="typeof previousPath == 'string'">
@@ -115,3 +117,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.icon {
+  width: 40px;
+}
+</style>
