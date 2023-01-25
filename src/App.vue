@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="#00838F" dark>
       <div class="d-flex align-center">
         <h1>Github Finder</h1>
       </div>
@@ -43,3 +43,11 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans&family=Ubuntu:wght@500&display=swap");
+
+h1 {
+  font-family: "Ubuntu", sans-serif;
+}
+</style>
