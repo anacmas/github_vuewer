@@ -16,6 +16,7 @@
                 <td v-if="isDirectory(content.type)">
                   <button
                     class="directory teal--text text-decoration-underline"
+                    @click="openDirectory(content.path)"
                   >
                     {{ content.name }}
                   </button>
@@ -65,8 +66,22 @@ export default {
       this.contents = this.contents.concat(contents);
       this.loading = false;
     },
+    async listFolderContent(path) {
+      this.loading = true;
+      const contents = await api.listFolderContent(
+        this.repo.owner.login,
+        this.repo.name,
+        path
+      );
+      this.contents = this.contents.concat(contents);
+      this.loading = false;
+    },
     isDirectory(type) {
       return type == "dir";
+    },
+    openDirectory(path) {
+      this.contents = [];
+      this.listFolderContent(path);
     },
   },
   watch: {
