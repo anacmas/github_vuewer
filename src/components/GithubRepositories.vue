@@ -13,10 +13,12 @@
             </thead>
             <tbody>
               <tr v-for="content in contents" :key="content.name">
+                <td></td>
+
                 <td
                   :class="
                     content.type == 'dir'
-                      ? 'teal--text text-decoration-underline'
+                      ? 'directory teal--text text-decoration-underline'
                       : ''
                   "
                 >
