@@ -12,6 +12,7 @@ https://anacmas.github.io/github_vuewer/
 <br>
 Para rodar o terminal de forma local, você pode clonar o repositório pelo terminal com:
 <br>
+
 ```
 git clone https://github.com/anacmas/github_vuewer.git
 ```
