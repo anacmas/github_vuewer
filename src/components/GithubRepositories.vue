@@ -1,6 +1,11 @@
 <template>
   <div>
     <v-row>
+      <v-icon class="icon">mdi-file-tree</v-icon>
+      ./
+      <div v-if="path">
+        {{ path }}
+      </div>
       <v-col cols="12">
         <v-simple-table>
           <template v-slot:default>
@@ -64,6 +69,7 @@ export default {
     loading: false,
     directoryContent: true,
     previousPath: null,
+    path: null,
   }),
   methods: {
     async listContent() {
@@ -74,6 +80,7 @@ export default {
       );
       this.contents = this.contents.concat(contents);
       this.previousPath = null;
+      this.path = null;
       this.loading = false;
     },
     async listFolderContent(path) {
@@ -84,13 +91,12 @@ export default {
         path
       );
       let newPreviousPathList = path.split("/");
+      this.path = path;
       newPreviousPathList.pop();
       const newPreviousPath = newPreviousPathList.join("/");
       this.previousPath = newPreviousPath;
-      console.log(contents);
       this.contents = this.contents.concat(contents);
       this.loading = false;
-      console.log(this.previousPath);
     },
     isDirectory(type) {
       return type == "dir";
